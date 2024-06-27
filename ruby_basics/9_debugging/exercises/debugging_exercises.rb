@@ -1,3 +1,5 @@
+require 'pry-byebug'
+
 # First, we're going to practice reading the Stack Trace
 # Don't look at this method prior to running the test
 # Type 'rspec' into the terminal to run Rspec
@@ -10,21 +12,23 @@ def decrement_smallest_value(nested_array)
   nested_array.each do |array|
     array.each do |current_value|
       if smallest_value > current_value
-        smallest_value = current_valu
+        smallest_value = current_value
       end
     end
   end
   smallest_value -= 1
 end
 
+
 # use the stack trace to debug the following method
 # Don't look at this method prior to running the test
 # Run rspec, let the test fail, and go through the stack trace again
+
 def increment_greatest_value(nested_array)
-  greatest_value = nested_array.flatten.min
+  greatest_value = nested_array.flatten.max  # Initialize to the maximum value
   nested_array.each do |array|
     array.each do |current_value|
-      if greatest_value < nil
+      if current_value > greatest_value
         greatest_value = current_value
       end
     end
@@ -32,15 +36,29 @@ def increment_greatest_value(nested_array)
   greatest_value += 1
 end
 
+
 # This next exercise might look familiar
 # Use p and puts in order to find what's wrong with our method
 
 def isogram?(string)
   original_length = string.length
-  string_array = string.downcase.split
+  puts "1) original_length: #{original_length}"
+  puts "1) string.length: #{string.length}"
+
+  string_array = string.downcase.chars
+  puts "2) string_array: #{string_array}"
+  puts "2) string.downcase.chars: #{string.downcase.chars}"
+
   unique_length = string_array.uniq.length
+  puts "3) unique_length: #{unique_length}"
+  puts "3) string_array.uniq.length: #{string_array.uniq.length}"
+
+  puts "4) original_length: #{original_length}"
+  puts "4) unique_length: #{unique_length}"
+
   original_length == unique_length
 end
+
 
 # Can you guess what's next?
 # That's right! The final exercise from the lesson, which we'll debug with pry-byebug
@@ -50,7 +68,10 @@ end
 # Once you find the error, fix it and get the test to pass
 
 def yell_greeting(string)
+  binding.pry
   name = string
-  name = name.downcase
+  binding.pry  
+  name = name.upcase
+  binding.pry
   greeting = "WASSAP, #{name}!"
 end
